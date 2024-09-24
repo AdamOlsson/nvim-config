@@ -8,7 +8,10 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup({
-    ensured_installed = { "lua_ls", "rust_analyzer", "pyright", "rust_analyzer" }
+    ensured_installed = {
+        "lua_ls", "rust_analyzer", "c", "wgsl-analyzer", "hydra-lsp",
+        "harper_ls"
+    }
 })
 
 require("mason-lspconfig").setup_handlers {
@@ -31,6 +34,14 @@ require("mason-lspconfig").setup_handlers {
                 end,
             },
 
+        }
+    end,
+    ["harper_ls"] = function ()
+        require("lspconfig").harper_ls.setup {
+            filetypes = {
+                "markdown", "typescript", "javascript", "python", "go", "c", "cpp",
+                "toml"
+            }
         }
     end
 }
