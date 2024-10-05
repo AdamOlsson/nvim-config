@@ -24,7 +24,8 @@ require("mason-lspconfig").setup_handlers {
     -- Next, you can provide a dedicated handler for specific servers.
     -- For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function ()
-        require("rust-tools").setup {
+        local rt = require("rust-tools")
+        rt.setup {
             server = {
                 on_attach = function(_, bufnr)
                     -- Hover actions
