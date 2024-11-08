@@ -41,3 +41,12 @@ lspconfig.rust_analyzer.setup {
 }
 
 lspconfig.pyright.setup{}
+
+-- Add the .wgsl filetype to nvim so that we can attach the wgsl lsp
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.wgsl",
+  callback = function()
+    vim.bo.filetype = "wgsl"
+  end,
+})
+lspconfig.wgsl_analyzer.setup {}
