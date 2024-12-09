@@ -3,7 +3,8 @@ local lspconfig = require('lspconfig')
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 
         local client_id = args.data.client_id
         local client = vim.lsp.get_client_by_id(client_id)
@@ -50,3 +51,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 lspconfig.wgsl_analyzer.setup {}
+
+
+lspconfig.clangd.setup{}
