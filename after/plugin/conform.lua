@@ -6,4 +6,10 @@ require("conform").setup({
         javascript = { "prettierd", "prettier", stop_after_first = true },
         cpp = { "clang_format", stop_after_first = true }
     },
+
+    formatters = {
+        clang_format = {
+            prepend_args = { "--style=file", "--fallback-style=LLVM" }
+        }
+    }
 })
