@@ -50,6 +50,7 @@ lspconfig.rust_analyzer.setup {
 
 lspconfig.pyright.setup{}
 
+<<<<<<< Updated upstream
 -- Add the .wgsl filetype to nvim so that we can attach the wgsl lsp
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.wgsl",
@@ -61,3 +62,21 @@ lspconfig.wgsl_analyzer.setup {}
 
 
 lspconfig.clangd.setup{}
+=======
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+lspconfig.jsonls.setup {
+  capabilities = capabilities,
+}
+
+
+lspconfig.eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+>>>>>>> Stashed changes
