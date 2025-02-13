@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+        vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
         local client_id = args.data.client_id
         local client = vim.lsp.get_client_by_id(client_id)
@@ -24,6 +25,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 })
             end
         })
+
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = args.buf })
+            -- vim.keymap.set('n', '<leader>th', function()
+            -- end, '[T]oggle Inlay [H]ints')
+          end
     end,
 })
 
