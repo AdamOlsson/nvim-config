@@ -5,8 +5,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
-        vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
         local client_id = args.data.client_id
         local client = vim.lsp.get_client_by_id(client_id)
 
