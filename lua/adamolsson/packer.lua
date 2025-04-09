@@ -41,4 +41,6 @@ return require('packer').startup(function(use)
     use 'hrsh7th/vim-vsnip'
 
     use { "akinsho/toggleterm.nvim", tag = '*' }
+
+    use { "sakhnik/nvim-gdb" }
 end)
