@@ -33,19 +33,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, {
+        border = "rounded",
+        focusable = true,
+        focus = true
+    }
+)
+
 -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#setup
 
 lspconfig.lua_ls.setup {}
 
-lspconfig.rust_analyzer.setup {
-    settings = {
-        imports = {
-            group = {
-                enable = false
-            }
-        }
-    }
-}
+-- lspconfig.rust_analyzer.setup {
+--     settings = {
+--         imports = {
+--             group = {
+--                 enable = false
+--             }
+--         }
+--     }
+-- }
 
 lspconfig.pyright.setup{}
 
@@ -55,10 +64,17 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     vim.bo.filetype = "wgsl"
   end,
 })
-lspconfig.wgsl_analyzer.setup {}
 
+-- lspconfig.wgsl_analyzer.setup {}
 
-lspconfig.clangd.setup{}
+lspconfig.clangd.setup({
+  cmd = { "/opt/homebrew/opt/llvm/bin/clangd" },  -- force the binary
+  on_attach = function(client, bufnr)
+    print("Using clangd at: " .. client.config.cmd[1])
+  end,
+})
+
+lspconfig.glsl_analyzer.setup{}
 
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()

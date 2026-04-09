@@ -13,14 +13,14 @@ end ,{ noremap= true, silent=true })
 vim.api.nvim_create_user_command('LLDBSelect', function()
     builtin.find_files({
         prompt_title = "Select Binary to Debug",
-        cwd = "./build/bin/",
+        cwd = "./build/debug/bin/",
         attach_mappings = function(prompt_bufnr, map)
             local action_state = require('telescope.actions.state')
             local actions = require('telescope.actions')
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry()
-                vim.cmd('GdbStartLLDB lldb ./build/bin/' .. selection.value)
+                vim.cmd('GdbStartLLDB lldb ./build/debug/bin/' .. selection.value)
             end)
             return true
         end
